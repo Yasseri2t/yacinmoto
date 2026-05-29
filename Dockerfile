@@ -16,4 +16,4 @@ RUN cp .env.example .env && php artisan key:generate --force
 RUN php artisan storage:link
 
 EXPOSE 8080
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8080
+CMD php artisan config:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8080
