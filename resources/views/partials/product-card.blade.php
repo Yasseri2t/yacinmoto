@@ -19,7 +19,7 @@
                 class="btn btn-outline-secondary fw-700"
                 style="border-radius:8px;width:40px;padding:0;height:36px;">+</button>
             <button
-                onclick="addToCart({{ $product->id }}, '{{ addslashes($product->name) }}', {{ $product->price }}, '{{ $product->image ?? '' }}'); window.location='/order/checkout';"
+                onclick="addToCart({{ $product->id }}, '{{ addslashes($product->name) }}', {{ $product->price }}, '{{ $product->image ?? '' }}'); setTimeout(()=>window.location='/order/checkout',100);"
                 class="btn text-white fw-600 flex-grow-1"
                 style="background:var(--primary);border-radius:8px;font-size:0.8rem;">
                 أطلب الان

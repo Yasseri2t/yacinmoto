@@ -70,7 +70,7 @@
                                 onclick="addToCart({{ $pieceOfDay->id }}, '{{ addslashes($pieceOfDay->name) }}', {{ $pieceOfDay->price }}, '{{ $pieceOfDay->image ?? '' }}')"
                                 class="btn btn-outline-light fw-600 px-3"><i class="bi bi-plus-lg"></i></button>
                             <button
-                                onclick="addToCart({{ $pieceOfDay->id }}, '{{ addslashes($pieceOfDay->name) }}', {{ $pieceOfDay->price }}, '{{ $pieceOfDay->image ?? '' }}'); window.location='/order/checkout';"
+                                onclick="addToCart({{ $pieceOfDay->id }}, '{{ addslashes($pieceOfDay->name) }}', {{ $pieceOfDay->price }}, '{{ $pieceOfDay->image ?? '' }}'); setTimeout(()=>window.location='/order/checkout',100);"
                                 class="btn text-white fw-700 px-4" style="background:var(--primary);border-radius:10px;">
                                 أطلب الان
                             </button>
