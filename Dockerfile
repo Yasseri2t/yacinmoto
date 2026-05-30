@@ -1,10 +1,10 @@
-FROM php:8.2-cli
+FROM php:8.2-fpm
 
 WORKDIR /var/www
 
 RUN apt-get update && apt-get install -y \
-    curl zip unzip git nodejs npm libpq-dev \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql
+    curl zip unzip git nodejs npm libpq-dev nginx \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql pgsql opcache
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -12,11 +12,14 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 RUN npm install && npm run build
-RUN cp .env.example .env \
-    && sed -i 's/DB_CONNECTION=sqlite/DB_CONNECTION=pgsql/' .env \
-    && php artisan key:generate --force
+RUN cp .env.example .env && php artisan key:generate --force
 RUN php artisan storage:link
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
 RUN chmod -R 777 storage bootstrap/cache
 
+COPY docker/nginx.conf /etc/nginx/sites-available/default
+
 EXPOSE 8080
-CMD php artisan config:clear && php artisan cache:clear && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8080
+CMD sh -c 'php artisan migrate --force && php-fpm -D && nginx -g "daemon off;"'
