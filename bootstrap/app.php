@@ -11,6 +11,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Trust Render's reverse proxy so Laravel sees HTTPS correctly
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'auth.admin' => \App\Http\Middleware\AuthAdmin::class,
         ]);
