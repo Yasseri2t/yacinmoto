@@ -1,11 +1,9 @@
-# Fix login.blade.php
-@"
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login — YacinMoto</title>
+    <title>Admin Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background: #111; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
@@ -22,20 +20,19 @@
     <div class="brand">
         <img src="/images/logo.png" alt="YacinMoto" onerror="this.style.display='none'">
         <h4>Yacine<span>Moto</span></h4>
-        <p class="text-muted small">Panneau d'administration</p>
+        <p class="text-muted small">Panneau d administration</p>
     </div>
-    @if(`$errors->any())
-    <div class="alert alert-danger">{{ `$errors->first() }}</div>
+    @if($errors->any())
+    <div class="alert alert-danger">{{ $errors->first() }}</div>
     @endif
     <form method="POST" action="{{ route('admin.login.post') }}">
         @csrf
         <div class="mb-3">
-            <label class="form-label fw-600">Mot de passe</label>
-            <input type="password" name="password" class="form-control form-control-lg" placeholder="••••••••" autofocus required>
+            <label class="form-label">Mot de passe</label>
+            <input type="password" name="password" class="form-control form-control-lg" autofocus required>
         </div>
-        <button class="btn btn-primary w-100 py-2 fw-700">Connexion →</button>
+        <button class="btn btn-primary w-100 py-2">Connexion</button>
     </form>
 </div>
 </body>
 </html>
-"@ | Out-File -FilePath resources\views\admin\login.blade.php -Encoding utf8
