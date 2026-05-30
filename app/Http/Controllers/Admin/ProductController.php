@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ProductController extends Controller
 {
@@ -26,12 +25,6 @@ class ProductController extends Controller
     public function store()
     {
         request()->validate(['name' => 'required', 'category_id' => 'required|exists:categories,id', 'price' => 'required|numeric']);
-        $imagePath = null;
-        if (request()->hasFile('image')) {
-            $imagePath = Cloudinary::upload(request()->file('image')->getRealPath(), [
-                'folder' => 'yacinmoto/products'
-            ])->getSecurePath();
-        }
         Product::create([
             'name'              => request('name'),
             'slug'              => Str::slug(request('name')) . '-' . uniqid(),
@@ -43,7 +36,7 @@ class ProductController extends Controller
             'section'           => request('section'),
             'in_stock'          => request()->has('in_stock'),
             'is_piece_of_day'   => request()->has('is_piece_of_day'),
-            'image'             => $imagePath,
+            'image'             => request('image'),
         ]);
         return redirect()->route('admin.products.index')->with('success', 'Produit ajouté!');
     }
@@ -58,12 +51,6 @@ class ProductController extends Controller
     public function update(Product $product)
     {
         request()->validate(['name' => 'required', 'category_id' => 'required', 'price' => 'required|numeric']);
-        $imagePath = $product->image;
-        if (request()->hasFile('image')) {
-            $imagePath = Cloudinary::upload(request()->file('image')->getRealPath(), [
-                'folder' => 'yacinmoto/products'
-            ])->getSecurePath();
-        }
         $product->update([
             'name'              => request('name'),
             'slug'              => Str::slug(request('name')) . '-' . $product->id,
@@ -75,7 +62,7 @@ class ProductController extends Controller
             'section'           => request('section'),
             'in_stock'          => request()->has('in_stock'),
             'is_piece_of_day'   => request()->has('is_piece_of_day'),
-            'image'             => $imagePath,
+            'image'             => request('image') ?: $product->image,
         ]);
         return redirect()->route('admin.products.index')->with('success', 'Mis à jour!');
     }
