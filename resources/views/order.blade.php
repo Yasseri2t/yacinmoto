@@ -148,9 +148,10 @@
             container.innerHTML = html;
             totalEl.textContent = total.toLocaleString() + ' DZD';
 
-            // Set again on submit to be 100% safe
+            // Re-set on submit to be 100% safe (use parsed array, NOT raw string)
             document.getElementById('orderForm').addEventListener('submit', function() {
-                cartInput.value = JSON.stringify(localStorage.getItem('yacinmoto_cart') || '[]');
+                const freshCart = JSON.parse(localStorage.getItem('yacinmoto_cart') || '[]');
+                cartInput.value = JSON.stringify(freshCart);
             });
         })();
     </script>
