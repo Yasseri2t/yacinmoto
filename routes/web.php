@@ -23,14 +23,23 @@ Route::get('/order/checkout', [OrderController::class, 'create'])->name('order.c
 Route::post('/order/checkout', [OrderController::class, 'store'])->name('order.store');
 Route::get('/order/success/{order}', [OrderController::class, 'success'])->name('order.success');
 
-// Admin login
-Route::get('/admin/login', function () {
+// Old /admin/login URL → 404 so bots/guessers find nothing
+Route::get('/admin/login', fn() => abort(404));
+Route::post('/admin/login', fn() => abort(404));
+
+// Secret admin login URL
+Route::get('/admin/loginyacineadminmotos', function () {
     return view('admin.login');
 })->name('admin.login');
-Route::post('/admin/login', function () {
+
+Route::post('/admin/loginyacineadminmotos', function () {
+    if (request('password') !== 'YacineMoto@2025!') {
+        return back()->withErrors(['password' => 'Mot de passe incorrect.']);
+    }
     session(['admin_logged_in' => true]);
     return redirect()->route('admin.dashboard');
 })->name('admin.login.post');
+
 Route::get('/admin/logout', function () {
     session()->forget('admin_logged_in');
     return redirect()->route('admin.login');
