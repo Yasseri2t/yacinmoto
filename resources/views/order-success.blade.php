@@ -8,7 +8,6 @@ $wilayaName = $wilayaNames[$order->wilaya] ?? $order->wilaya;
 <div class="container py-5 text-center">
     <div style="font-size:4rem;">✅</div>
     <h2 class="fw-800 mt-3">!تم استلام طلبك</h2>
-    <div class="mt-2 mb-1" style="font-size:1.5rem;font-weight:800;color:var(--primary);">طلبك رقم #{{ $order->id }}</div>
     <p class="lead text-muted">Merci <strong>{{ $order->customer_name }}</strong>! Votre commande a été reçue.</p>
 
     <div class="card mx-auto mt-4 border-0 shadow" style="max-width:460px;border-radius:16px;overflow:hidden;">
