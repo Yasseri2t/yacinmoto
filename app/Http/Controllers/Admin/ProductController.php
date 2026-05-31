@@ -20,7 +20,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $motoTypes = \App\Models\MotoType::orderBy('name')->get();
-        \$sections = Section::orderBy('sort_order')->get();
+        $sections = Section::orderBy('sort_order')->get();
         return view('admin.products.create', compact('categories', 'motoTypes', 'sections'));
     }
 
@@ -47,7 +47,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $motoTypes = \App\Models\MotoType::orderBy('name')->get();
-        \$sections = Section::orderBy('sort_order')->get();
+        $sections = Section::orderBy('sort_order')->get();
         return view('admin.products.edit', compact('product', 'categories', 'motoTypes', 'sections'));
     }
 
