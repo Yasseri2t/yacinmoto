@@ -2,18 +2,20 @@
 @section('title', 'Accueil')
 @section('content')
 
-    <!-- SECTIONS NAV -->
+    <!-- SECTIONS NAV — links go to catalog page with filter applied -->
     <div class="sections-nav">
         <div class="container">
             <ul class="nav">
-                <li class="nav-item"><a class="nav-link {{ !request('section') ? 'active' : '' }}"
-                        href="{{ route('home') }}">🔧 Tout</a></li>
-                <li class="nav-item"><a class="nav-link {{ request('section') == 'pieces' ? 'active' : '' }}"
-                        href="{{ route('home', ['section' => 'pieces']) }}">⚙️ Pièces</a></li>
-                <li class="nav-item"><a class="nav-link {{ request('section') == 'carenage' ? 'active' : '' }}"
-                        href="{{ route('home', ['section' => 'carenage']) }}">🛡️ Carénage</a></li>
-                <li class="nav-item"><a class="nav-link {{ request('section') == 'moteur' ? 'active' : '' }}"
-                        href="{{ route('home', ['section' => 'moteur']) }}">⚡ Moteur & Électrique</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('catalog') }}">🔧 Tout le catalogue</a>
+                </li>
+                @foreach($sections as $section)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('catalog', ['section' => $section['slug']]) }}">
+                        {{ $section['icon'] }} {{ $section['name'] }}
+                    </a>
+                </li>
+                @endforeach
             </ul>
         </div>
     </div>

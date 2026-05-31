@@ -31,11 +31,9 @@
                             <label class="form-label fw-600">Type</label>
                             <select name="section" class="form-select">
                                 <option value="">Choisir...</option>
-                                <option value="pieces" {{ old('section') == 'pieces' ? 'selected' : '' }}>⚙️ Pièces</option>
-                                <option value="carenage" {{ old('section') == 'carenage' ? 'selected' : '' }}>🛡️ Carénage
-                                </option>
-                                <option value="moteur" {{ old('section') == 'moteur' ? 'selected' : '' }}>⚡ Moteur &
-                                    Électrique</option>
+                                @foreach($sections as $s)
+                                <option value="{{ $s->slug }}" {{ old('section') == $s->slug ? 'selected' : '' }}>{{ $s->icon }} {{ $s->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -58,18 +56,11 @@
                             <textarea name="description" class="form-control" rows="3" placeholder="Description du produit...">{{ old('description') }}</textarea>
                         </div>
                         <div class="col-12">
-                            <label class="form-label fw-600">Photo principale (URL Cloudinary)</label>
+                            <label class="form-label fw-600">Photo du produit (URL Cloudinary)</label>
                             <input type="url" name="image" class="form-control" value="{{ old('image') }}"
                                 placeholder="https://res.cloudinary.com/..." id="imgInput">
-                            <small class="text-muted">Uploadez sur Cloudinary → copiez l'URL → collez ici</small>
+                            <small class="text-muted">Uploadez l'image sur Cloudinary → copiez l'URL → collez ici</small>
                             <div id="imgPreview" class="mt-2"></div>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label fw-600">Photos supplémentaires (URLs Cloudinary)</label>
-                            <textarea name="extra_images" class="form-control" rows="4" id="extraInput"
-                                placeholder="Collez une URL par ligne:&#10;https://res.cloudinary.com/...&#10;https://res.cloudinary.com/..."></textarea>
-                            <small class="text-muted">Une URL par ligne</small>
-                            <div id="extraPreview" class="d-flex gap-2 flex-wrap mt-2"></div>
                         </div>
                         <div class="col-12 d-flex gap-4">
                             <div class="form-check">
@@ -96,19 +87,13 @@
     <script>
         document.getElementById('imgInput').addEventListener('input', function() {
             const preview = document.getElementById('imgPreview');
-            preview.innerHTML = this.value ?
-                `<img src="${this.value}" style="width:90px;height:90px;object-fit:contain;border-radius:8px;border:2px solid #ff6b00;background:#f8f8f8;padding:4px;" onerror="this.style.display='none'">` :
-                '';
+            if (this.value) {
+                preview.innerHTML =
+                    `<img src="${this.value}" style="width:90px;height:90px;object-fit:contain;border-radius:8px;border:2px solid #ff6b00;background:#f8f8f8;padding:4px;" onerror="this.style.display='none'">`;
+            } else {
+                preview.innerHTML = '';
+            }
         });
-
-        document.getElementById('extraInput').addEventListener('input', function() {
-            const preview = document.getElementById('extraPreview');
-            const urls = this.value.split('\n').map(u => u.trim()).filter(u => u);
-            preview.innerHTML = urls.map(url =>
-                `<img src="${url}" style="width:70px;height:70px;object-fit:contain;border-radius:8px;border:2px solid #ddd;background:#f8f8f8;padding:3px;" onerror="this.style.display='none'">`
-            ).join('');
-        });
-
         document.querySelector('form').addEventListener('submit', function() {
             const select = document.getElementById('motoSelect');
             const selected = Array.from(select.selectedOptions).map(o => o.value);

@@ -52,7 +52,10 @@
             <i class="bi bi-box"></i> Produits
         </a>
         <a href="{{ route('admin.categories.index') }}" class="{{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-            <i class="bi bi-tags"></i> Sections
+            <i class="bi bi-tags"></i> Catégories
+        </a>
+        <a href="{{ route('admin.sections.index') }}" class="{{ request()->routeIs('admin.sections.*') ? 'active' : '' }}">
+            <i class="bi bi-grid"></i> Sections
         </a>
         <a href="{{ route('admin.moto-types.index') }}" class="{{ request()->routeIs('admin.moto-types.*') ? 'active' : '' }}">
             <i class="bi bi-scooter"></i> Types de Moto

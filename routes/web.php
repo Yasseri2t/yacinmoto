@@ -11,13 +11,15 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\MotoTypeController;
+use App\Http\Controllers\Admin\SectionController;
 
 // Public
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about', fn() => view('about'))->name('about');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
 Route::post('/product/{product}/review', [ReviewController::class, 'store'])->name('review.store');
-Route::get('/about', fn() => view('about'))->name('about');
+Route::get('/order/checkout', [OrderController::class, 'create'])->name('order.create');
 Route::post('/order/checkout', [OrderController::class, 'store'])->name('order.store');
 Route::get('/order/success/{order}', [OrderController::class, 'success'])->name('order.success');
 
@@ -41,4 +43,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function
     Route::resource('orders', AdminOrderController::class);
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('moto-types', MotoTypeController::class);
+    Route::resource('sections', SectionController::class);
 });

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\ProductImage;
+use App\Models\Section;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -20,14 +20,14 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $motoTypes = \App\Models\MotoType::orderBy('name')->get();
-        return view('admin.products.create', compact('categories', 'motoTypes'));
+        \$sections = Section::orderBy('sort_order')->get();
+        return view('admin.products.create', compact('categories', 'motoTypes', 'sections'));
     }
 
     public function store()
     {
         request()->validate(['name' => 'required', 'category_id' => 'required|exists:categories,id', 'price' => 'required|numeric']);
-
-        $product = Product::create([
+        Product::create([
             'name'              => request('name'),
             'slug'              => Str::slug(request('name')) . '-' . uniqid(),
             'category_id'       => request('category_id'),
@@ -40,14 +40,6 @@ class ProductController extends Controller
             'is_piece_of_day'   => request()->has('is_piece_of_day'),
             'image'             => request('image'),
         ]);
-
-        // Save extra images
-        $extraImages = array_filter(explode("\n", request('extra_images', '')));
-        foreach ($extraImages as $i => $url) {
-            $url = trim($url);
-            if ($url) ProductImage::create(['product_id' => $product->id, 'url' => $url, 'order' => $i]);
-        }
-
         return redirect()->route('admin.products.index')->with('success', 'Produit ajouté!');
     }
 
@@ -55,13 +47,13 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $motoTypes = \App\Models\MotoType::orderBy('name')->get();
-        return view('admin.products.edit', compact('product', 'categories', 'motoTypes'));
+        \$sections = Section::orderBy('sort_order')->get();
+        return view('admin.products.edit', compact('product', 'categories', 'motoTypes', 'sections'));
     }
 
     public function update(Product $product)
     {
         request()->validate(['name' => 'required', 'category_id' => 'required', 'price' => 'required|numeric']);
-
         $product->update([
             'name'              => request('name'),
             'slug'              => Str::slug(request('name')) . '-' . $product->id,
@@ -75,17 +67,6 @@ class ProductController extends Controller
             'is_piece_of_day'   => request()->has('is_piece_of_day'),
             'image'             => request('image') ?: $product->image,
         ]);
-
-        // Update extra images
-        if (request()->has('extra_images')) {
-            $product->images()->delete();
-            $extraImages = array_filter(explode("\n", request('extra_images', '')));
-            foreach ($extraImages as $i => $url) {
-                $url = trim($url);
-                if ($url) ProductImage::create(['product_id' => $product->id, 'url' => $url, 'order' => $i]);
-            }
-        }
-
         return redirect()->route('admin.products.index')->with('success', 'Mis à jour!');
     }
 
