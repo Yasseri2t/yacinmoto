@@ -55,7 +55,7 @@
                 <td>
                     <div class="d-flex align-items-center gap-2">
                         @if($item->product->image)
-                        <img src="{{ Storage::url($item->product->image) }}" width="40" height="40" style="object-fit:cover;border-radius:6px;">
+                        <img src="{{ $item->product->image }}" width="40" height="40" style="object-fit:cover;border-radius:6px;">
                         @endif
                         <div>
                             <div class="fw-600">{{ $item->product->name }}</div>

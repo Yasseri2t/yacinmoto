@@ -53,7 +53,7 @@
                     <div class="col-12">
                         <label class="form-label fw-600">Changer la photo</label>
                         @if($product->image)
-                        <div class="mb-2"><img src="{{ Storage::url($product->image) }}" style="width:80px;height:80px;object-fit:contain;border-radius:8px;border:2px solid #ff6b00;background:#f8f8f8;padding:4px;"></div>
+                        <div class="mb-2"><img src="{{ $product->image }}" style="width:80px;height:80px;object-fit:contain;border-radius:8px;border:2px solid #ff6b00;background:#f8f8f8;padding:4px;"></div>
                         @endif
                         <input type="file" name="image" class="form-control" accept="image/*">
                     </div>
