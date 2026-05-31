@@ -37,7 +37,7 @@ Route::get('/admin/loginyacineadminmotos', function () {
 })->name('admin.login');
 
 Route::post('/admin/loginyacineadminmotos', function () {
-    if (request('password') !== 'YacineMoto@2025!') {
+    if (request('password') !== env('ADMIN_PASSWORD')) {
         return back()->withErrors(['password' => 'Mot de passe incorrect.']);
     }
     session(['admin_logged_in' => true]);
