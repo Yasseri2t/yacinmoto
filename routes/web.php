@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\MotoTypeController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Admin\DeliveryController;
 
 // Public
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -23,17 +24,20 @@ Route::get('/order/checkout', [OrderController::class, 'create'])->name('order.c
 Route::post('/order/checkout', [OrderController::class, 'store'])->name('order.store');
 Route::get('/order/success/{order}', [OrderController::class, 'success'])->name('order.success');
 
-// Old /admin/login URL → 404 so bots/guessers find nothing
+// Delivery price API (called by JS in checkout)
+Route::get('/delivery-price/{wilaya}', [DeliveryController::class, 'forWilaya']);
+
+// Old login → 404
 Route::get('/admin/login', fn() => abort(404));
 Route::post('/admin/login', fn() => abort(404));
 
-// Secret admin login URL
+// Secret admin login
 Route::get('/admin/loginyacineadminmotos', function () {
     return view('admin.login');
 })->name('admin.login');
 
 Route::post('/admin/loginyacineadminmotos', function () {
-    if (request('password') !== 'Yacine2025moto') {
+    if (request('password') !== 'YacineMoto@2025!') {
         return back()->withErrors(['password' => 'Mot de passe incorrect.']);
     }
     session(['admin_logged_in' => true]);
@@ -53,4 +57,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('moto-types', MotoTypeController::class);
     Route::resource('sections', SectionController::class);
+    Route::get('delivery', [DeliveryController::class, 'index'])->name('delivery.index');
+    Route::put('delivery', [DeliveryController::class, 'update'])->name('delivery.update');
 });

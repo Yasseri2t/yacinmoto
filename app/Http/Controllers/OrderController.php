@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\DeliveryPrice;
 
 class OrderController extends Controller
 {
@@ -23,18 +23,16 @@ class OrderController extends Controller
             'cart_data'      => 'required',
         ]);
 
-        $raw = request('cart_data');
-        // Handle double-encoded JSON
-        $cartData = json_decode($raw, true);
-        if (is_string($cartData)) {
-            $cartData = json_decode($cartData, true);
-        }
+        $cartData = json_decode(request('cart_data'), true);
+        if (is_string($cartData)) $cartData = json_decode($cartData, true);
 
         if (!$cartData || count($cartData) === 0) {
             return back()->withErrors(['cart_data' => 'Panier vide!']);
         }
 
-        $total = collect($cartData)->sum(fn($i) => $i['price'] * $i['qty']);
+        $productTotal = collect($cartData)->sum(fn($i) => $i['price'] * $i['qty']);
+        $deliveryCost = (float) request('delivery_cost', 0);
+        $total = $productTotal + $deliveryCost;
 
         $order = Order::create([
             'customer_name'  => request('customer_name'),

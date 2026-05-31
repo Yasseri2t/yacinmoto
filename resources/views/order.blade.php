@@ -17,6 +17,7 @@
                 <form method="POST" action="{{ route('order.store') }}" id="orderForm">
                     @csrf
                     <input type="hidden" name="cart_data" id="cartDataInput">
+                    <input type="hidden" name="delivery_cost" id="deliveryCostInput" value="0">
 
                     <!-- CLIENT INFO -->
                     <div class="card border-0 shadow-sm mb-3" style="border-radius:14px;overflow:hidden;">
@@ -37,7 +38,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-600 small text-muted">الولاية *</label>
-                                    <select name="wilaya" class="form-select form-select-lg" required style="border-radius:10px;">
+                                    <select name="wilaya" id="wilayaSelect" class="form-select form-select-lg" required style="border-radius:10px;">
                                         <option value="">اختر الولاية</option>
                                         @php $wilayas = ['01-Adrar','02-Chlef','03-Laghouat','04-Oum El Bouaghi','05-Batna','06-Béjaïa','07-Biskra','08-Béchar','09-Blida','10-Bouira','11-Tamanrasset','12-Tébessa','13-Tlemcen','14-Tiaret','15-Tizi Ouzou','16-Alger','17-Djelfa','18-Jijel','19-Sétif','20-Saïda','21-Skikda','22-Sidi Bel Abbès','23-Annaba','24-Guelma','25-Constantine','26-Médéa','27-Mostaganem','28-M\'Sila','29-Mascara','30-Ouargla','31-Oran','32-El Bayadh','33-Illizi','34-Bordj Bou Arréridj','35-Boumerdès','36-El Tarf','37-Tindouf','38-Tissemsilt','39-El Oued','40-Khenchela','41-Souk Ahras','42-Tipaza','43-Mila','44-Aïn Defla','45-Naâma','46-Aïn Témouchent','47-Ghardaïa','48-Relizane','49-Timimoun','50-Bordj Badji Mokhtar','51-Ouled Djellal','52-Béni Abbès','53-In Salah','54-In Guezzam','55-Touggourt','56-Djanet','57-El M\'Ghair','58-El Meniaa']; @endphp
                                         @foreach ($wilayas as $w)
@@ -77,13 +78,17 @@
                         </div>
                     </div>
 
-                    <!-- CART ITEMS WITH QTY CONTROLS -->
+                    <!-- CART ITEMS -->
                     <div class="card border-0 shadow-sm mb-3" style="border-radius:14px;overflow:hidden;">
                         <div class="card-header fw-700 py-3" style="background:#f8f8f8;">
                             <i class="bi bi-cart3 me-2" style="color:var(--primary)"></i>سلة المشتريات
                         </div>
-                        <div id="orderItemsList" class="px-3 py-2">
-                            <p class="text-muted small py-2 mb-0">Chargement...</p>
+                        <div id="orderItemsList" class="px-3 py-2"></div>
+                        <div class="px-3 pb-1 pt-0" id="deliveryRow" style="display:none;">
+                            <div class="d-flex justify-content-between py-2 text-muted small border-top">
+                                <span id="deliveryLabel">🚚 Livraison</span>
+                                <span id="deliveryCostDisplay">— DZD</span>
+                            </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between fw-800 py-3" style="background:#fff8f5;">
                             <span>Total:</span>
@@ -105,72 +110,106 @@
     </div>
 @endsection
 @section('scripts')
-    <script>
-        let cart = JSON.parse(localStorage.getItem('yacinmoto_cart') || '[]');
-        const cartInput  = document.getElementById('cartDataInput');
-        const container  = document.getElementById('orderItemsList');
-        const totalEl    = document.getElementById('orderTotal');
-        const submitBtn  = document.getElementById('submitBtn');
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let cart = JSON.parse(localStorage.getItem('yacinmoto_cart') || '[]');
+    let deliveryCost = 0;
+    let productTotal = 0;
 
-        function saveCart() {
-            localStorage.setItem('yacinmoto_cart', JSON.stringify(cart));
-            cartInput.value = JSON.stringify(cart);
-        }
+    const cartInput     = document.getElementById('cartDataInput');
+    const delivInput    = document.getElementById('deliveryCostInput');
+    const container     = document.getElementById('orderItemsList');
+    const totalEl       = document.getElementById('orderTotal');
+    const submitBtn     = document.getElementById('submitBtn');
+    const deliveryRow   = document.getElementById('deliveryRow');
+    const delivLabel    = document.getElementById('deliveryLabel');
+    const delivDisplay  = document.getElementById('deliveryCostDisplay');
+    const wilayaSelect  = document.getElementById('wilayaSelect');
+    const delivTypeRadios = document.querySelectorAll('input[name="delivery_type"]');
 
-        function changeQty(id, delta) {
-            const item = cart.find(i => i.id == id);
-            if (!item) return;
-            item.qty += delta;
-            if (item.qty <= 0) {
-                cart = cart.filter(i => i.id != id);
-            }
-            saveCart();
-            renderCart();
-        }
+    function saveCart() {
+        localStorage.setItem('yacinmoto_cart', JSON.stringify(cart));
+        cartInput.value = JSON.stringify(cart);
+    }
 
-        function renderCart() {
-            if (!cart.length) {
-                container.innerHTML = '<p class="text-danger small py-3 mb-0 text-center">⚠️ سلتك فارغة! <a href="/">اختر منتجات</a></p>';
-                submitBtn.disabled = true;
-                totalEl.textContent = '0 DZD';
-                return;
-            }
-
-            submitBtn.disabled = false;
-            let total = 0;
-            let html = '';
-
-            cart.forEach(i => {
-                const sub = i.price * i.qty;
-                total += sub;
-                html += `
-                <div class="d-flex align-items-center justify-content-between py-2 border-bottom gap-2">
-                    <div class="d-flex align-items-center gap-2 flex-grow-1">
-                        ${i.image ? `<img src="${i.image}" style="width:44px;height:44px;object-fit:contain;border-radius:8px;background:#f8f8f8;border:1px solid #eee;padding:2px;">` : ''}
-                        <span class="fw-600 small">${i.name}</span>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 flex-shrink-0">
-                        <button type="button" onclick="changeQty(${i.id}, -1)"
-                            style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--primary);background:white;color:var(--primary);font-weight:800;font-size:1rem;line-height:1;cursor:pointer;">−</button>
-                        <span class="fw-700" style="min-width:20px;text-align:center;">${i.qty}</span>
-                        <button type="button" onclick="changeQty(${i.id}, 1)"
-                            style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--primary);background:var(--primary);color:white;font-weight:800;font-size:1rem;line-height:1;cursor:pointer;">+</button>
-                        <span class="fw-700 small ms-1" style="color:var(--primary);min-width:70px;text-align:right;">${sub.toLocaleString()} DZD</span>
-                    </div>
-                </div>`;
-            });
-
-            container.innerHTML = html;
-            totalEl.textContent = total.toLocaleString() + ' DZD';
-        }
-
-        // Init
+    function changeQty(id, delta) {
+        const item = cart.find(i => i.id == id);
+        if (!item) return;
+        item.qty += delta;
+        if (item.qty <= 0) cart = cart.filter(i => i.id != id);
         saveCart();
         renderCart();
+    }
 
-        // Re-sync on submit
-        document.getElementById('orderForm').addEventListener('submit', function() {
-            cartInput.value = JSON.stringify(cart);
+    function renderCart() {
+        if (!cart.length) {
+            container.innerHTML = '<p class="text-danger small py-3 mb-0 text-center">⚠️ سلتك فارغة! <a href="/">اختر منتجات</a></p>';
+            submitBtn.disabled = true;
+            totalEl.textContent = '0 DZD';
+            return;
+        }
+        submitBtn.disabled = false;
+        productTotal = 0;
+        let html = '';
+        cart.forEach(i => {
+            const sub = i.price * i.qty;
+            productTotal += sub;
+            html += `
+            <div class="d-flex align-items-center justify-content-between py-2 border-bottom gap-2">
+                <div class="d-flex align-items-center gap-2 flex-grow-1 overflow-hidden">
+                    ${i.image ? `<img src="${i.image}" style="width:44px;height:44px;object-fit:contain;border-radius:8px;background:#f8f8f8;border:1px solid #eee;padding:2px;flex-shrink:0;">` : ''}
+                    <span class="fw-600 small text-truncate">${i.name}</span>
+                </div>
+                <div class="d-flex align-items-center gap-1 flex-shrink-0">
+                    <button type="button" onclick="changeQty(${i.id},-1)"
+                        style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--primary);background:white;color:var(--primary);font-weight:800;font-size:1rem;cursor:pointer;">−</button>
+                    <span class="fw-700 small" style="min-width:20px;text-align:center;">${i.qty}</span>
+                    <button type="button" onclick="changeQty(${i.id},1)"
+                        style="width:28px;height:28px;border-radius:50%;border:1.5px solid var(--primary);background:var(--primary);color:white;font-weight:800;font-size:1rem;cursor:pointer;">+</button>
+                    <span class="fw-700 small ms-2" style="color:var(--primary);min-width:75px;text-align:right;">${sub.toLocaleString()} DZD</span>
+                </div>
+            </div>`;
         });
-    </script>
+        container.innerHTML = html;
+        updateTotal();
+    }
+
+    function updateTotal() {
+        const grand = productTotal + deliveryCost;
+        totalEl.textContent = grand.toLocaleString() + ' DZD';
+        delivInput.value = deliveryCost;
+    }
+
+    function fetchDeliveryPrice() {
+        const wilaya = wilayaSelect.value;
+        const type = document.querySelector('input[name="delivery_type"]:checked')?.value || 'home';
+        if (!wilaya) { deliveryRow.style.display = 'none'; deliveryCost = 0; updateTotal(); return; }
+
+        fetch(`/delivery-price/${wilaya}`)
+            .then(r => r.json())
+            .then(data => {
+                deliveryCost = type === 'home' ? parseFloat(data.home_price) : parseFloat(data.office_price);
+                delivLabel.textContent = type === 'home' ? '🏠 Livraison domicile' : '🏢 Livraison bureau';
+                delivDisplay.textContent = deliveryCost.toLocaleString() + ' DZD';
+                deliveryRow.style.display = 'block';
+                updateTotal();
+            })
+            .catch(() => { deliveryCost = 0; updateTotal(); });
+    }
+
+    wilayaSelect.addEventListener('change', fetchDeliveryPrice);
+    delivTypeRadios.forEach(r => r.addEventListener('change', fetchDeliveryPrice));
+
+    // expose changeQty globally for onclick
+    window.changeQty = changeQty;
+
+    saveCart();
+    renderCart();
+
+    document.getElementById('orderForm').addEventListener('submit', function() {
+        cartInput.value = JSON.stringify(cart);
+        delivInput.value = deliveryCost;
+    });
+});
+</script>
 @endsection
