@@ -25,24 +25,36 @@
             <div class="col-md-5">
                 <div class="store-info-card h-100">
                     <h5 class="fw-800 mb-3"><i class="bi bi-shop me-2" style="color:var(--primary)"></i>Notre Boutique</h5>
-                    <p class="mb-2"><i class="bi bi-geo-alt me-2 text-danger"></i><strong>Adresse:</strong> Chlef, Algérie
+                    <p class="mb-2">
+                        <i class="bi bi-geo-alt me-2 text-danger"></i><strong>Adresse:</strong>
+                        <a href="https://maps.app.goo.gl/gkDFCH4SBSNdnfrM7" target="_blank"
+                            style="color:var(--primary);text-decoration:none;">
+                            YacineMoto, Chlef, Algérie <i class="bi bi-box-arrow-up-right" style="font-size:0.75rem;"></i>
+                        </a>
                     </p>
-                    <p class="mb-2"><i class="bi bi-telephone me-2"
-                            style="color:var(--primary)"></i><strong>Téléphone:</strong> +213 XX XX XX XX</p>
+                    <p class="mb-2">
+                        <i class="bi bi-telephone me-2" style="color:var(--primary)"></i><strong>Téléphone:</strong>
+                        <a href="tel:+213554164465" style="color:inherit;text-decoration:none;">+213 554 16 44 65</a>
+                    </p>
                     <p class="mb-2"><i class="bi bi-clock me-2"
                             style="color:var(--primary)"></i><strong>Horaires:</strong> Sam–Jeu 8h–18h</p>
                     <p class="mb-3"><i class="bi bi-truck me-2"
                             style="color:var(--primary)"></i><strong>Livraison:</strong> Partout en Algérie</p>
-                    <div class="p-3 rounded text-center" style="background:#fff8f5;border:2px dashed var(--primary);">
+                    <div class="p-3 rounded text-center mb-3" style="background:#fff8f5;border:2px dashed var(--primary);">
                         <span style="color:var(--primary);font-weight:800;font-size:1.1rem;">الدفع عند الاستلام</span><br>
                         <small class="text-muted">Cash à la livraison uniquement</small>
                     </div>
+                    <a href="https://wa.me/213554164465" target="_blank"
+                        class="btn w-100 fw-700 text-white"
+                        style="background:#25d366;border-radius:10px;font-size:0.95rem;">
+                        <i class="bi bi-whatsapp me-2"></i>Contacter sur WhatsApp
+                    </a>
                 </div>
             </div>
             <div class="col-md-7">
                 <div class="map-embed h-100" style="min-height:260px;">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25704.2!2d1.3369!3d36.1655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128fb3b5555555%3A0x555555555!2sChlef%2C%20Algeria!5e0!3m2!1sfr!2sdz!4v1620000000000!5m2!1sfr!2sdz"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.4!2d1.33239!3d36.15977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12840f126d1c6097%3A0x94847109dc12df7a!2sYacineMoto!5e0!3m2!1sfr!2sdz!4v1620000000000!5m2!1sfr!2sdz"
                         width="100%" height="100%" style="border:0;border-radius:14px;min-height:260px;"
                         allowfullscreen="" loading="lazy"></iframe>
                 </div>
