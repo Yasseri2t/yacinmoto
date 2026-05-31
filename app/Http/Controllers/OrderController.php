@@ -63,6 +63,7 @@ class OrderController extends Controller
 
     public function success(Order $order)
     {
+        $order->load('items.product');
         return view('order-success', compact('order'));
     }
 }
