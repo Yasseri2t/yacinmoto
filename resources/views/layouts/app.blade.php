@@ -17,7 +17,7 @@
         body {
             font-family: 'Segoe UI', sans-serif;
             background: #f8f8f8;
-            padding-bottom: 70px;
+            padding-bottom: 20px;
         }
 
         /* NAVBAR */
@@ -322,53 +322,67 @@
             border-top: 2px solid #f0f0f0;
         }
 
-        /* FIXED BOTTOM BAR */
-        .bottom-bar {
+        /* FLOATING ACTION BUTTONS */
+        .fab-stack {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #111;
-            padding: 10px 20px;
+            bottom: 24px;
+            right: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 997;
+        }
+
+        .fab {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: none;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            z-index: 997;
-            border-top: 2px solid var(--primary);
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            transition: transform 0.15s, box-shadow 0.15s;
+            text-decoration: none;
+            position: relative;
         }
 
-        .bottom-bar .cart-summary {
-            color: white;
-            font-size: 0.85rem;
+        .fab:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 22px rgba(0,0,0,0.3);
         }
 
-        .bottom-bar .cart-summary span {
-            color: var(--primary);
-            font-weight: 800;
-        }
-
-        .bottom-bar .btn-cart {
+        .fab-cart {
             background: var(--primary);
             color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 20px;
-            font-weight: 700;
-            cursor: pointer;
         }
 
-        .bottom-bar .btn-whatsapp {
+        .fab-whatsapp {
             background: #25d366;
             color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 16px;
-            font-weight: 700;
-            text-decoration: none;
+        }
+
+        .fab-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: white;
+            color: var(--primary);
+            font-size: 0.65rem;
+            font-weight: 800;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            border: 1.5px solid var(--primary);
+            line-height: 1;
         }
+
+        .fab-badge.hidden { display: none; }
 
         /* OVERLAY */
         .overlay {
@@ -437,6 +451,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('catalog') }}">Catalogue</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}#store-info">Notre Boutique</a>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">À propos & Retours</a></li>
                     </li>
                 </ul>
             </div>
@@ -480,17 +495,15 @@
         </div>
     </div>
 
-    <!-- FIXED BOTTOM BAR -->
-    <div class="bottom-bar">
-        <div class="cart-summary">
-            🛒 <span id="bottomCount">0</span> article(s) — <span id="bottomTotal">0 DZD</span>
-        </div>
-        <div class="d-flex gap-2">
-            <button class="btn-cart" onclick="openCart()"><i class="bi bi-bag me-1"></i>Panier</button>
-            <a href="https://wa.me/213XXXXXXXXX" class="btn-whatsapp" target="_blank">
-                <i class="bi bi-whatsapp"></i> WhatsApp
-            </a>
-        </div>
+    <!-- FLOATING ACTION BUTTONS -->
+    <div class="fab-stack">
+        <a href="https://wa.me/213554164465" class="fab fab-whatsapp" target="_blank" aria-label="WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+        </a>
+        <button class="fab fab-cart" onclick="openCart()" aria-label="Panier">
+            <i class="bi bi-bag"></i>
+            <span class="fab-badge hidden" id="fabBadge">0</span>
+        </button>
     </div>
 
     <footer class="mt-5">
@@ -499,6 +512,11 @@
                 <div class="col-md-6">
                     <div class="brand mb-1">Yacine<span>Moto</span></div>
                     <p class="mb-0 small">Pièces scooter — Chlef, Algérie</p>
+                    <p class="mb-0 small mt-1">
+                        <a href="tel:+213554164465" style="color:#aaa;text-decoration:none;">
+                            <i class="bi bi-telephone me-1"></i>0554 164 465
+                        </a>
+                    </p>
                 </div>
                 <div class="col-md-6 text-md-end mt-3 mt-md-0">
                     <p class="mb-0 fw-700" style="color:var(--primary);">الدفع عند الاستلام 🚚</p>
@@ -562,8 +580,14 @@
             const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
             const count = cart.reduce((s, i) => s + i.qty, 0);
             document.getElementById('cartTotal').textContent = total.toLocaleString() + ' DZD';
-            document.getElementById('bottomTotal').textContent = total.toLocaleString() + ' DZD';
-            document.getElementById('bottomCount').textContent = count;
+            // FAB badge
+            const badge = document.getElementById('fabBadge');
+            if (count > 0) {
+                badge.textContent = count;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
             const container = document.getElementById('cartItems');
             if (!cart.length) {
                 container.innerHTML = '<p class="text-muted text-center mt-4 small">Panier vide</p>';

@@ -17,7 +17,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
 Route::post('/product/{product}/review', [ReviewController::class, 'store'])->name('review.store');
-Route::get('/order/checkout', [OrderController::class, 'create'])->name('order.create');
+Route::get('/about', fn() => view('about'))->name('about');
 Route::post('/order/checkout', [OrderController::class, 'store'])->name('order.store');
 Route::get('/order/success/{order}', [OrderController::class, 'success'])->name('order.success');
 
