@@ -60,6 +60,9 @@
         <a href="{{ route('admin.moto-types.index') }}" class="{{ request()->routeIs('admin.moto-types.*') ? 'active' : '' }}">
             <i class="bi bi-scooter"></i> Types de Moto
         </a>
+        <a href="{{ route('admin.delivery.index') }}" class="{{ request()->routeIs('admin.delivery.*') ? 'active' : '' }}">
+    <i class="bi bi-truck"></i> Prix Livraison
+</a>
         <div class="nav-section">Site</div>
         <a href="{{ route('home') }}" target="_blank"><i class="bi bi-globe"></i> Voir le site</a>
         <a href="{{ route('admin.logout') }}" style="color:#c00;"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
