@@ -12,13 +12,27 @@
         <div class="row g-4">
             <div class="col-md-5">
                 @if ($product->image)
-                    <img src="{{ $product->image }}" class="img-fluid rounded shadow"
+                    <img src="{{ $product->image }}" id="mainImage" class="img-fluid rounded shadow"
                         style="width:100%;max-height:420px;object-fit:contain;background:#f8f8f8;padding:10px;"
                         alt="{{ $product->name }}">
                 @else
                     <div class="rounded d-flex align-items-center justify-content-center"
                         style="height:350px;background:#f0f0f0;">
                         <i class="bi bi-image text-secondary" style="font-size:4rem;"></i>
+                    </div>
+                @endif
+
+                @if ($product->images->count())
+                    <div class="d-flex gap-2 mt-3 flex-wrap">
+                        @if ($product->image)
+                            <img src="{{ $product->image }}" onclick="document.getElementById('mainImage').src=this.src"
+                                style="width:70px;height:70px;object-fit:contain;border-radius:8px;border:2px solid #ff6b00;background:#f8f8f8;padding:3px;cursor:pointer;">
+                        @endif
+                        @foreach ($product->images as $img)
+                            <img src="{{ $img->url }}" onclick="document.getElementById('mainImage').src=this.src"
+                                style="width:70px;height:70px;object-fit:contain;border-radius:8px;border:2px solid #ddd;background:#f8f8f8;padding:3px;cursor:pointer;"
+                                onmouseover="this.style.borderColor='#ff6b00'" onmouseout="this.style.borderColor='#ddd'">
+                        @endforeach
                     </div>
                 @endif
             </div>
