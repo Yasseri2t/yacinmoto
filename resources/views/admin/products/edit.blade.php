@@ -4,7 +4,7 @@
 <div class="row justify-content-center">
     <div class="col-md-9">
         <div class="stat-card">
-            <form method="POST" action="{{ route('admin.products.update', $product) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.products.update', $product) }}">
                 @csrf @method('PUT')
                 <div class="row g-3">
                     <div class="col-md-8">
@@ -26,11 +26,11 @@
                     <div class="col-md-6">
                         <label class="form-label fw-600">Type</label>
                         <select name="section" class="form-select">
-                                <option value="">Choisir...</option>
-                                @foreach($sections as $s)
-                                <option value="{{ $s->slug }}" {{ (old('section', $product->section ?? '') == $s->slug) ? 'selected' : '' }}>{{ $s->icon }} {{ $s->name }}</option>
-                                @endforeach
-                            </select>
+                            <option value="">Choisir...</option>
+                            @foreach($sections as $s)
+                            <option value="{{ $s->slug }}" {{ (old('section', $product->section ?? '') == $s->slug) ? 'selected' : '' }}>{{ $s->icon }} {{ $s->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-600">Marque</label>
@@ -50,13 +50,34 @@
                         <label class="form-label fw-600">Description</label>
                         <textarea name="description" class="form-control" rows="3">{{ old('description', $product->description) }}</textarea>
                     </div>
+
+                    {{-- Main image --}}
                     <div class="col-12">
-                        <label class="form-label fw-600">Changer la photo</label>
+                        <label class="form-label fw-600">Photo principale (URL Cloudinary)</label>
                         @if($product->image)
-                        <div class="mb-2"><img src="{{ $product->image }}" style="width:80px;height:80px;object-fit:contain;border-radius:8px;border:2px solid #ff6b00;background:#f8f8f8;padding:4px;"></div>
+                        <div class="mb-2">
+                            <img src="{{ $product->image }}" id="imgPreview" style="width:80px;height:80px;object-fit:contain;border-radius:8px;border:2px solid #ff6b00;background:#f8f8f8;padding:4px;">
+                        </div>
                         @endif
-                        <input type="file" name="image" class="form-control" accept="image/*">
+                        <input type="url" name="image" class="form-control" id="imgInput"
+                            value="{{ old('image', $product->image) }}"
+                            placeholder="https://res.cloudinary.com/...">
+                        <small class="text-muted">Laissez vide pour garder la photo actuelle</small>
                     </div>
+
+                    {{-- Extra images --}}
+                    <div class="col-12">
+                        <label class="form-label fw-600">Photos supplémentaires (URLs Cloudinary)</label>
+                        <textarea name="extra_images" class="form-control" rows="4" id="extraInput"
+                            placeholder="Collez une URL par ligne:&#10;https://res.cloudinary.com/...&#10;https://res.cloudinary.com/...">{{ old('extra_images', $product->images->pluck('url')->implode("\n")) }}</textarea>
+                        <small class="text-muted">Une URL par ligne — remplace toutes les photos supplémentaires existantes</small>
+                        <div id="extraPreview" class="d-flex gap-2 flex-wrap mt-2">
+                            @foreach($product->images as $img)
+                            <img src="{{ $img->url }}" style="width:70px;height:70px;object-fit:contain;border-radius:8px;border:2px solid #ddd;background:#f8f8f8;padding:3px;">
+                            @endforeach
+                        </div>
+                    </div>
+
                     <div class="col-12 d-flex gap-4">
                         <div class="form-check">
                             <input type="checkbox" name="in_stock" class="form-check-input" id="in_stock" {{ $product->in_stock ? 'checked' : '' }}>
@@ -80,11 +101,24 @@
 @endsection
 @section('scripts')
 <script>
-document.querySelector('form').addEventListener('submit', function() {
-    const select = document.getElementById('motoSelect');
-    const selected = Array.from(select.selectedOptions).map(o => o.value);
-    document.getElementById('compatibleHidden').value = selected.join(', ');
-    select.name = '';
-});
+    document.getElementById('imgInput').addEventListener('input', function() {
+        const preview = document.getElementById('imgPreview');
+        if (preview) preview.src = this.value;
+    });
+
+    document.getElementById('extraInput').addEventListener('input', function() {
+        const preview = document.getElementById('extraPreview');
+        const urls = this.value.split('\n').map(u => u.trim()).filter(u => u);
+        preview.innerHTML = urls.map(url =>
+            `<img src="${url}" style="width:70px;height:70px;object-fit:contain;border-radius:8px;border:2px solid #ddd;background:#f8f8f8;padding:3px;" onerror="this.style.display='none'">`
+        ).join('');
+    });
+
+    document.querySelector('form').addEventListener('submit', function() {
+        const select = document.getElementById('motoSelect');
+        const selected = Array.from(select.selectedOptions).map(o => o.value);
+        document.getElementById('compatibleHidden').value = selected.join(', ');
+        select.name = '';
+    });
 </script>
 @endsection
