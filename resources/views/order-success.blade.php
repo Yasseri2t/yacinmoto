@@ -6,22 +6,22 @@ $wilayaNames = ['1'=>'Adrar','2'=>'Chlef','3'=>'Laghouat','4'=>'Oum El Bouaghi',
 $wilayaName = $wilayaNames[$order->wilaya] ?? $order->wilaya;
 @endphp
 <div class="container py-5 text-center">
-    <div style="margin-bottom:8px;"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#25c16f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg></div>
+    <div style="font-size:4rem;">✅</div>
     <h2 class="fw-800 mt-3">!تم استلام طلبك</h2>
     <p class="lead text-muted">Merci <strong>{{ $order->customer_name }}</strong>! Votre commande a été reçue.</p>
 
     <div class="card mx-auto mt-4 border-0 shadow" style="max-width:460px;border-radius:16px;overflow:hidden;">
         <div class="card-header text-white fw-700 py-3" style="background:var(--primary);">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>طلبك في الطريق إليك!
+            🛵 طلبك في الطريق إليك!
         </div>
         <div class="card-body text-start p-4">
             <p class="mb-2"><strong>Wilaya:</strong> {{ $order->wilaya }} — {{ $wilayaName }}</p>
-            <p class="mb-2"><strong>Livraison:</strong> {{ $order->delivery_type == 'home' ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>À domicile' : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><rect x="2" y="3" width="20" height="18" rx="1"/><path d="M8 3v18M16 3v18M2 9h20M2 15h20"/></svg>Au bureau' }}</p>
+            <p class="mb-2"><strong>Livraison:</strong> {{ $order->delivery_type == 'home' ? '🏠 À domicile' : '🏢 Au bureau' }}</p>
             <p class="mb-3"><strong>Statut:</strong> <span class="badge" style="background:var(--primary);">⏳ En attente</span></p>
 
             {{-- Order items --}}
             <div class="border-top pt-3">
-                <p class="fw-700 mb-2 small text-muted"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>طلبك:</p>
+                <p class="fw-700 mb-2 small text-muted">🛒 طلبك:</p>
                 @foreach($order->items as $item)
                 <div class="d-flex align-items-center gap-3 mb-2">
                     @if($item->product && $item->product->image)
@@ -46,7 +46,7 @@ $wilayaName = $wilayaNames[$order->wilaya] ?? $order->wilaya;
 
     <a href="{{ route('catalog') }}" class="btn text-white fw-700 mt-2 px-5 py-2"
         style="background:var(--primary);border-radius:10px;font-size:1rem;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Continuer les achats
+        ← Continuer les achats
     </a>
 </div>
 @endsection

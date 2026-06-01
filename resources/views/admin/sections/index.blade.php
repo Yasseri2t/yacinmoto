@@ -24,7 +24,7 @@
                     <a href="{{ route('admin.sections.edit', $section) }}" class="btn btn-sm btn-outline-warning me-1">Modifier</a>
                     <form method="POST" action="{{ route('admin.sections.destroy', $section) }}" class="d-inline">
                         @csrf @method('DELETE')
-                        <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Supprimer cette section?')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="return confirm('Supprimer cette section?')">✕</button>
                     </form>
                 </td>
             </tr>

@@ -7,7 +7,7 @@
         <div class="container">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('catalog') }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Tout le catalogue</a>
+                    <a class="nav-link" href="{{ route('catalog') }}">🔧 Tout le catalogue</a>
                 </li>
                 @foreach($sections as $section)
                 <li class="nav-item">
@@ -77,7 +77,7 @@
             <div class="piece-du-jour mb-5">
                 <div class="row align-items-center">
                     <div class="col-md-7">
-                        <div class="badge-jour"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;fill:currentColor;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Pièce du Jour</div>
+                        <div class="badge-jour">⭐ Pièce du Jour</div>
                         <h2 class="fw-800 mb-2">{{ $pieceOfDay->name }}</h2>
                         @if ($pieceOfDay->description)
                             <p class="mb-3" style="color:#ccc;">{{ Str::limit($pieceOfDay->description, 120) }}</p>
