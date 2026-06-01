@@ -9,7 +9,7 @@
                 @if ($errors->any())
                     <div class="alert alert-danger rounded-3">
                         @foreach ($errors->all() as $e)
-                            <div>⚠️ {{ $e }}</div>
+                            <div><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>{{ $e }}</div>
                         @endforeach
                     </div>
                 @endif
@@ -62,11 +62,11 @@
                                     <div class="d-flex gap-4 mt-1">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="delivery_type" value="home" id="home" checked>
-                                            <label class="form-check-label fw-600" for="home">🏠 توصيل للمنزل</label>
+                                            <label class="form-check-label fw-600" for="home"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>توصيل للمنزل</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="delivery_type" value="office" id="office">
-                                            <label class="form-check-label fw-600" for="office">🏢 توصيل للمكتب</label>
+                                            <label class="form-check-label fw-600" for="office"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><rect x="2" y="3" width="20" height="18" rx="1"/><path d="M8 3v18M16 3v18M2 9h20M2 15h20"/></svg>توصيل للمكتب</label>
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                         <div id="orderItemsList" class="px-3 py-2"></div>
                         <div class="px-3 pb-1 pt-0" id="deliveryRow" style="display:none;">
                             <div class="d-flex justify-content-between py-2 text-muted small border-top">
-                                <span id="deliveryLabel">🚚 Livraison</span>
+                                <span id="deliveryLabel"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Livraison</span>
                                 <span id="deliveryCostDisplay">— DZD</span>
                             </div>
                         </div>
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(r => r.json())
             .then(data => {
                 deliveryCost = type === 'home' ? parseFloat(data.home_price) : parseFloat(data.office_price);
-                delivLabel.textContent = type === 'home' ? '🏠 Livraison domicile' : '🏢 Livraison bureau';
+                delivLabel.textContent = type === 'home' ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Livraison domicile' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><rect x="2" y="3" width="20" height="18" rx="1"/><path d="M8 3v18M16 3v18M2 9h20M2 15h20"/></svg>Livraison bureau';
                 delivDisplay.textContent = deliveryCost.toLocaleString() + ' DZD';
                 deliveryRow.style.display = 'block';
                 updateTotal();

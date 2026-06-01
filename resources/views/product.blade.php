@@ -112,7 +112,7 @@
                     <div class="card-body p-4">
                         <h6 class="fw-700 mb-3">✍️ Laisser un avis</h6>
                         @if (session('success'))
-                            <div class="alert alert-success py-2">✅ {{ session('success') }}</div>
+                            <div class="alert alert-success py-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>{{ session('success') }}</div>
                         @endif
                         <form method="POST" action="{{ route('review.store', $product) }}">
                             @csrf
