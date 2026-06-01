@@ -81,11 +81,11 @@
                     <div class="col-12 d-flex gap-4">
                         <div class="form-check">
                             <input type="checkbox" name="in_stock" class="form-check-input" id="in_stock" {{ $product->in_stock ? 'checked' : '' }}>
-                            <label class="form-check-label fw-600" for="in_stock">✓ En stock</label>
+                            <label class="form-check-label fw-600" for="in_stock"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><polyline points="20 6 9 17 4 12"/></svg>En stock</label>
                         </div>
                         <div class="form-check">
                             <input type="checkbox" name="is_piece_of_day" class="form-check-input" id="pod" {{ $product->is_piece_of_day ? 'checked' : '' }}>
-                            <label class="form-check-label fw-600" for="pod">⭐ Pièce du Jour</label>
+                            <label class="form-check-label fw-600" for="pod"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;fill:currentColor;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Pièce du Jour</label>
                         </div>
                     </div>
                 </div>

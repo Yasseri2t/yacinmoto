@@ -466,7 +466,7 @@
             @endphp
             @foreach ($motos as $moto)
                 <a href="{{ route('catalog', ['moto' => $moto->slug]) }}"
-                    class="moto-tag {{ request('moto') == $moto->slug ? 'active' : '' }}">🛵 {{ $moto->name }}</a>
+                    class="moto-tag {{ request('moto') == $moto->slug ? 'active' : '' }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><circle cx="6" cy="17" r="2"/><circle cx="18" cy="17" r="2"/><path d="M6 17H3V11l4-5h7l2 5h3l1 3-1 3"/><path d="M14 6l1 5"/></svg>{{ $moto->name }}</a>
             @endforeach
             <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}">✨ Tous</a>
         </div>
@@ -519,7 +519,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                    <p class="mb-0 fw-700" style="color:var(--primary);">الدفع عند الاستلام 🚚</p>
+                    <p class="mb-0 fw-700" style="color:var(--primary);">الدفع عند الاستلام <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></p>
                     <p class="mb-0 small">Livraison partout en Algérie</p>
                 </div>
             </div>
@@ -544,7 +544,7 @@
             updateCartUI();
             const btn = event.target;
             const orig = btn.innerHTML;
-            btn.innerHTML = '✓';
+            btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><polyline points="20 6 9 17 4 12"/></svg>';
             btn.style.background = '#22c55e';
             btn.style.color = 'white';
             setTimeout(() => {
@@ -603,7 +603,7 @@
                     <button onclick="updateQty(${i.id},-1)">-</button>
                     <span>${i.qty}</span>
                     <button onclick="updateQty(${i.id},1)">+</button>
-                    <button onclick="removeFromCart(${i.id})" style="background:#fee;color:#c00;width:auto;padding:0 6px;border-radius:4px;margin-left:4px;">✕</button>
+                    <button onclick="removeFromCart(${i.id})" style="background:#fee;color:#c00;width:auto;padding:0 6px;border-radius:4px;margin-left:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
                 </div>
             </div>
         </div>`).join('');

@@ -11,7 +11,7 @@
             <p class="mb-1"><strong>Wilaya:</strong> {{ $order->wilaya }}</p>
             <p class="mb-1"><strong>Commune:</strong> {{ $order->commune ?? '—' }}</p>
             <p class="mb-1"><strong>Adresse:</strong> {{ $order->address }}</p>
-            <p class="mb-1"><strong>Livraison:</strong> {{ $order->delivery_type == 'home' ? '🏠 Domicile' : '🏢 Bureau' }}</p>
+            <p class="mb-1"><strong>Livraison:</strong> {{ $order->delivery_type == 'home' ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Domicile' : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><rect x="2" y="3" width="20" height="18" rx="1"/><path d="M8 3v18M16 3v18M2 9h20M2 15h20"/></svg>Bureau' }}</p>
             @if($order->notes)<p class="mb-0"><strong>Notes:</strong> {{ $order->notes }}</p>@endif
         </div>
     </div>
@@ -74,5 +74,5 @@
         </tfoot>
     </table>
 </div>
-<a href="{{ route('admin.orders.index') }}" class="btn btn-outline-secondary mt-3">← Retour</a>
+<a href="{{ route('admin.orders.index') }}" class="btn btn-outline-secondary mt-3"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Retour</a>
 @endsection
