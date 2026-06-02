@@ -21,9 +21,9 @@
         .topbar { background: white; border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
         .stat-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
         .btn-primary { background: var(--primary) !important; border-color: var(--primary) !important; }
-        .badge-pending { background: #fff3cd; color: #856404; padding: 4px 10px; border-radius: 20px; }
+        .badge-pending   { background: #fff3cd; color: #856404; padding: 4px 10px; border-radius: 20px; }
         .badge-confirmed { background: #d1ecf1; color: #0c5460; padding: 4px 10px; border-radius: 20px; }
-        .badge-shipped { background: #d4edda; color: #155724; padding: 4px 10px; border-radius: 20px; }
+        .badge-shipped   { background: #d4edda; color: #155724; padding: 4px 10px; border-radius: 20px; }
         .badge-delivered { background: #c3e6cb; color: #155724; padding: 4px 10px; border-radius: 20px; }
         .badge-cancelled { background: #f8d7da; color: #721c24; padding: 4px 10px; border-radius: 20px; }
         .table th { font-size: 0.78rem; text-transform: uppercase; color: #888; border: none; }
@@ -44,9 +44,21 @@
         </a>
         <a href="{{ route('admin.orders.index') }}" class="{{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
             <i class="bi bi-bag"></i> Commandes
-            @php $pending = \App\Models\Order::where('status','pending')->count(); @endphp
-            @if($pending)<span class="badge ms-auto" style="background:var(--primary);border-radius:20px;padding:2px 8px;font-size:0.7rem;">{{ $pending }}</span>@endif
+            @php $pendingOrders = \App\Models\Order::where('status','pending')->count(); @endphp
+            @if($pendingOrders)
+                <span class="badge ms-auto" style="background:var(--primary);border-radius:20px;padding:2px 8px;font-size:0.7rem;">{{ $pendingOrders }}</span>
+            @endif
         </a>
+
+        {{-- FIX 4: Reviews moderation link with pending badge --}}
+        <a href="{{ route('admin.reviews.index') }}" class="{{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}">
+            <i class="bi bi-chat-dots"></i> Avis clients
+            @php $pendingReviews = \App\Models\Review::where('is_approved', false)->count(); @endphp
+            @if($pendingReviews)
+                <span class="badge ms-auto" style="background:#dc3545;border-radius:20px;padding:2px 8px;font-size:0.7rem;">{{ $pendingReviews }}</span>
+            @endif
+        </a>
+
         <div class="nav-section">Catalogue</div>
         <a href="{{ route('admin.products.index') }}" class="{{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
             <i class="bi bi-box"></i> Produits
@@ -61,8 +73,8 @@
             <i class="bi bi-scooter"></i> Types de Moto
         </a>
         <a href="{{ route('admin.delivery.index') }}" class="{{ request()->routeIs('admin.delivery.*') ? 'active' : '' }}">
-    <i class="bi bi-truck"></i> Prix Livraison
-</a>
+            <i class="bi bi-truck"></i> Prix Livraison
+        </a>
         <div class="nav-section">Site</div>
         <a href="{{ route('home') }}" target="_blank"><i class="bi bi-globe"></i> Voir le site</a>
         <a href="{{ route('admin.logout') }}" style="color:#c00;"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
