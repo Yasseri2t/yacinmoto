@@ -77,10 +77,7 @@
             <div class="piece-du-jour mb-5">
                 <div class="row align-items-center">
                     <div class="col-md-7">
-                        <div class="badge-jour"><svg width="20" height="20" viewBox="0 0 40 40" fill="none">
-                            <polygon points="20,6 24,15 34,16 27,23 29,33 20,28 11,33 13,23 6,16 16,15"
-                            stroke="#E85D04" stroke-width="2" stroke-linejoin="round"/>
-                        </svg> Pièce du Jour</div>
+                        <div class="badge-jour">⭐ Pièce du Jour</div>
                         <h2 class="fw-800 mb-2">{{ $pieceOfDay->name }}</h2>
                         @if ($pieceOfDay->description)
                             <p class="mb-3" style="color:#ccc;">{{ Str::limit($pieceOfDay->description, 120) }}</p>

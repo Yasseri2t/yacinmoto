@@ -39,15 +39,12 @@
             <div class="col-md-7">
                 <small class="text-muted text-uppercase">{{ $product->category->name }}</small>
                 <h2 class="fw-800 mt-1">{{ $product->name }}</h2>
-
-                {{-- FIX 4: Only count and display approved reviews --}}
-                @php $approvedReviews = $product->reviews()->approved()->get(); @endphp
-                @php $avgStars = $approvedReviews->count() ? round($approvedReviews->avg('stars')) : 0; @endphp
+                @php $avgStars = $product->reviews->count() ? round($product->reviews->avg('stars')) : 0; @endphp
                 <div class="mb-2">
                     @for ($i = 1; $i <= 5; $i++)
                         <span style="color:{{ $i <= $avgStars ? '#ffc107' : '#ddd' }};font-size:1.1rem;">★</span>
                     @endfor
-                    <small class="text-muted ms-1">({{ $approvedReviews->count() }} avis)</small>
+                    <small class="text-muted ms-1">({{ $product->reviews->count() }} avis)</small>
                 </div>
                 <h3 style="color:var(--primary);font-weight:800;">{{ number_format($product->price, 0) }} DZD</h3>
 
@@ -86,9 +83,8 @@
         <div class="row g-4 mt-4">
             <div class="col-md-7">
                 <h5 class="fw-800 mb-3">Avis <span style="color:var(--primary)">clients</span></h5>
-                {{-- FIX 4: Only show approved reviews on public page --}}
-                @if ($approvedReviews->count())
-                    @foreach ($approvedReviews as $review)
+                @if ($product->reviews->count())
+                    @foreach ($product->reviews as $review)
                         <div class="card mb-3 border-0 shadow-sm" style="border-radius:12px;">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
@@ -120,16 +116,9 @@
                         @endif
                         <form method="POST" action="{{ route('review.store', $product) }}">
                             @csrf
-
-                            {{-- FIX 4: Honeypot — hidden from real users, bots fill it, server rejects --}}
-                            <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
-                                <label for="website">Ne pas remplir</label>
-                                <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
-                            </div>
-
                             <div class="mb-3">
                                 <input type="text" name="name" class="form-control" placeholder="Votre nom" required
-                                    maxlength="100" style="border-radius:8px;">
+                                    style="border-radius:8px;">
                             </div>
                             <div class="mb-3">
                                 <select name="stars" class="form-select" required style="border-radius:8px;">
@@ -142,18 +131,13 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <textarea name="comment" class="form-control" rows="4"
-                                    placeholder="Votre commentaire (min 10 caractères)..." required
-                                    minlength="10" maxlength="1000"
+                                <textarea name="comment" class="form-control" rows="4" placeholder="Votre commentaire..." required
                                     style="border-radius:8px;"></textarea>
                             </div>
                             <button class="btn w-100 text-white fw-600"
                                 style="background:var(--primary);border-radius:8px;">
                                 Publier l'avis
                             </button>
-                            <small class="text-muted d-block mt-2 text-center">
-                                <i class="bi bi-shield-check me-1"></i>Votre avis sera publié après modération.
-                            </small>
                         </form>
                     </div>
                 </div>

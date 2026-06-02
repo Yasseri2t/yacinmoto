@@ -6,18 +6,13 @@ use Illuminate\Foundation\Configuration\Middleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web:      __DIR__ . '/../routes/web.php',
+        web: __DIR__ . '/../routes/web.php',
         commands: __DIR__ . '/../routes/console.php',
-        health:   '/up',
+        health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
         // Trust Render's reverse proxy so Laravel sees HTTPS correctly
         $middleware->trustProxies(at: '*');
-
-        // FIX 8: Apply security headers (CSP, X-Frame-Options, etc.) to every response
-        $middleware->web(append: [
-            \App\Http\Middleware\AddSecurityHeaders::class,
-        ]);
 
         $middleware->alias([
             'auth.admin' => \App\Http\Middleware\AuthAdmin::class,
