@@ -473,7 +473,9 @@
                         width="20" height="20" style="vertical-align:-4px;margin-right:5px;object-fit:contain;">
                     {{ $moto->name }}</a>
             @endforeach
-            <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}">✨ Tous</a>
+            <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}"><img src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780572033/icon1_ujhgvt.png" width="20"
+                height="20" style="vertical-align:-4px;margin-right:5px;object-fit:contain;">
+                Tous</a>
         </div>
     </div>
 
