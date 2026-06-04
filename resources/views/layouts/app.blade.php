@@ -461,7 +461,7 @@
                     {{ $moto->name }}</a>
             @endforeach
             <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}"><img
-                    src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780576096/ChatGPT_Image_Jun_4_2026_01_06_13_PM_vpmten.png"
+                    src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780584248/ChatGPT_Image_4_juin_2026_13_28_20-jukebox-bg-removed_h5qm0c.png"
                     width="18" height="18"
                     style="vertical-align:-3px;margin-right:4px;object-fit:contain;border-radius:3px;">
                 Tous</a>
