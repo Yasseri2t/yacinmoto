@@ -33,24 +33,11 @@
         .navbar-brand {
             display: flex;
             align-items: center;
-            gap: 10px;
         }
 
         .navbar-brand img {
-            height: 52px;
-            filter: invert(1);
+            height: 44px;
             object-fit: contain;
-        }
-
-        .navbar-brand span {
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
-
-        .navbar-brand span b {
-            color: var(--primary);
         }
 
         .nav-link {
@@ -442,8 +429,8 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="YacinMoto" onerror="this.style.display='none'">
-                <span>Yacine<b>Moto</b></span>
+                <img src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780573831/fulllogo_oocykx.png"
+                    height="40" style="object-fit:contain;">
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
                 <i class="bi bi-list text-white fs-3"></i>
@@ -473,8 +460,9 @@
                         width="20" height="20" style="vertical-align:-4px;margin-right:5px;object-fit:contain;">
                     {{ $moto->name }}</a>
             @endforeach
-            <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}"><img src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780572033/icon1_ujhgvt.png" width="20"
-                height="20" style="vertical-align:-4px;margin-right:5px;object-fit:contain;">
+            <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}"><img
+                    src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780576096/ChatGPT_Image_Jun_4_2026_01_06_13_PM_vpmten.png"
+                    width="18" height="18" style="vertical-align:-3px;margin-right:4px;object-fit:contain;border-radius:3px;">
                 Tous</a>
         </div>
     </div>
@@ -526,7 +514,7 @@
                     </p>
                 </div>
                 <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                    <p class="mb-0 fw-700" style="color:var(--primary);">الدفع عند الاستلام 🚚</p>
+                    <p class="mb-0 fw-700" style="color:var(--primary);">الدفع عند الاستلام</p>
                     <p class="mb-0 small">Livraison partout en Algérie</p>
                 </div>
             </div>
