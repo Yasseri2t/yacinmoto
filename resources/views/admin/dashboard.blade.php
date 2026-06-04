@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @php
-$wilayaNames = config('wilayas'); @endphp
-@endphpgit
+$wilayaNames = config('wilayas');
+@endphp
 @section('title', 'Dashboard')
 @section('content')
 <div class="row g-3 mb-4">
