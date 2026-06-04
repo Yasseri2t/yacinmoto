@@ -95,8 +95,16 @@
                 <div class="row align-items-center">
                     <div class="col-md-7">
                         <div class="badge-jour"><svg width="14" height="14" viewBox="0 0 40 40">
+                                <defs>
+                                    <linearGradient id="gold" x1="0%" y1="0%" x2="100%"
+                                        y2="100%">
+                                        <stop offset="0%" stop-color="#FFD700" />
+                                        <stop offset="50%" stop-color="#FFA500" />
+                                        <stop offset="100%" stop-color="#FFD700" />
+                                    </linearGradient>
+                                </defs>
                                 <polygon points="20,6 24,15 34,16 27,23 29,33 20,28 11,33 13,23 6,16 16,15"
-                                    fill="#E85D04" />
+                                    fill="url(#gold)" />
                             </svg> Pièce du Jour</div>
                         <h2 class="fw-800 mb-2">{{ $pieceOfDay->name }}</h2>
                         @if ($pieceOfDay->description)
