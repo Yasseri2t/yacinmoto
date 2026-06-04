@@ -429,7 +429,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780573831/fulllogo_oocykx.png"
+                <img src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780583296/ChatGPT_Image_4_juin_2026_12_40_18-Photoroom_piq1od.png"
                     height="40" style="object-fit:contain;">
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
@@ -462,7 +462,8 @@
             @endforeach
             <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}"><img
                     src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780576096/ChatGPT_Image_Jun_4_2026_01_06_13_PM_vpmten.png"
-                    width="18" height="18" style="vertical-align:-3px;margin-right:4px;object-fit:contain;border-radius:3px;">
+                    width="18" height="18"
+                    style="vertical-align:-3px;margin-right:4px;object-fit:contain;border-radius:3px;">
                 Tous</a>
         </div>
     </div>
