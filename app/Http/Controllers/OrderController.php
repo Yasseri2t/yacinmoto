@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Order;
@@ -30,8 +31,16 @@ class OrderController extends Controller
             return back()->withErrors(['cart_data' => 'Panier vide!']);
         }
 
-        $productTotal = collect($cartData)->sum(fn($i) => $i['price'] * $i['qty']);
-        $deliveryCost = (float) request('delivery_cost', 0);
+        $productTotal = 0;
+        foreach ($cartData as $item) {
+            $product = Product::find($item['id']);
+            if ($product) $productTotal += $product->price * $item['qty'];
+        }
+        // Also verify delivery_cost against DB
+        $deliveryRow = DeliveryPrice::where('wilaya_number', request('wilaya'))->first();
+        $deliveryCost = $deliveryRow
+            ? (request('delivery_type') === 'office' ? $deliveryRow->office_price : $deliveryRow->home_price)
+            : 0;
         $total = $productTotal + $deliveryCost;
 
         $order = Order::create([

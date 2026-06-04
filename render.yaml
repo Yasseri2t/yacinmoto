@@ -8,12 +8,14 @@ services:
       npm run build
       cp .env.example .env
       php artisan key:generate --force
-      php artisan migrate --force
       php artisan storage:link
-      php artisan config:cache
-      php artisan route:cache
-      php artisan view:cache
-    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    startCommand: >-
+      php artisan config:clear &&
+      php artisan config:cache &&
+      php artisan route:cache &&
+      php artisan view:cache &&
+      php artisan migrate --force &&
+      php artisan serve --host=0.0.0.0 --port=$PORT
     envVars:
       - key: APP_NAME
         value: ScootZone
@@ -24,9 +26,9 @@ services:
       - key: APP_KEY
         generateValue: true
       - key: DB_CONNECTION
-        value: sqlite
+        value: pgsql
       - key: SESSION_DRIVER
-        value: file
+        value: database
       - key: CACHE_STORE
         value: file
       - key: QUEUE_CONNECTION

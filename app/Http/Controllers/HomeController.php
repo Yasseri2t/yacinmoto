@@ -15,19 +15,23 @@ class HomeController extends Controller
 
         // Load sections from DB so admin-managed sections show here
         $dbSections = Section::orderBy('sort_order')->get();
+$slugs = $dbSections->pluck('slug')->toArray();
 
-        $sections = $dbSections->map(function ($s) {
-            return [
-                'name'     => $s->name,
-                'slug'     => $s->slug,
-                'icon'     => $s->icon,
-                'products' => Product::where('section', $s->slug)
-                                     ->where('in_stock', true)
-                                     ->latest()
-                                     ->take(4)
-                                     ->get(),
-            ];
-        });
+// One query for ALL sections at once
+$productsBySection = Product::whereIn('section', $slugs)
+    ->where('in_stock', true)
+    ->latest()
+    ->get()
+    ->groupBy('section');
+
+$sections = $dbSections->map(function ($s) use ($productsBySection) {
+    return [
+        'name'     => $s->name,
+        'slug'     => $s->slug,
+        'icon'     => $s->icon,
+        'products' => ($productsBySection[$s->slug] ?? collect())->take(4),
+    ];
+});
 
         return view('home', compact('pieceOfDay', 'featured', 'sections'));
     }
