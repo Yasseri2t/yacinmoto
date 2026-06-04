@@ -19,7 +19,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', fn() => view('about'))->name('about');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');
-Route::post('/product/{product}/review', [ReviewController::class, 'store'])->name('review.store');
+Route::post('/product/{product}/review', [ReviewController::class, 'store'])
+    ->name('review.store')
+    ->middleware('throttle:3,60');
 Route::get('/order/checkout', [OrderController::class, 'create'])->name('order.create');
 Route::post('/order/checkout', [OrderController::class, 'store'])->name('order.store');
 Route::get('/order/success/{order}', [OrderController::class, 'success'])->name('order.success');
@@ -54,9 +56,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('products', AdminProductController::class);
     Route::resource('orders', AdminOrderController::class);
-    Route::resource('categories', AdminCategoryController::class);
-    Route::resource('moto-types', MotoTypeController::class);
-    Route::resource('sections', SectionController::class);
+    Route::resource('categories', AdminCategoryController::class)->except(['show']);
+Route::resource('moto-types', MotoTypeController::class)->except(['show']);
+Route::resource('sections', SectionController::class)->except(['show']);
     Route::get('delivery', [DeliveryController::class, 'index'])->name('delivery.index');
     Route::put('delivery', [DeliveryController::class, 'update'])->name('delivery.update');
 });
