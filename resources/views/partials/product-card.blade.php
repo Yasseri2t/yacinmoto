@@ -1,7 +1,7 @@
 <div class="product-card h-100" style="cursor:pointer;"
     onclick="window.location='{{ route('product.show', $product->slug) }}'">
     @if ($product->is_piece_of_day ?? false)
-        <div class="badge-exclusive">⭐ EXCLUSIF</div>
+        <div class="badge-exclusive"><svg width="20" height="20" viewBox="0 0 40 40" fill="none"><polygon points="20,6 24,15 34,16 27,23 29,33 20,28 11,33 13,23 6,16 16,15" stroke="#E85D04" stroke-width="2" stroke-linejoin="round"/></svg> EXCLUSIF</div>
     @endif
     @if ($product->image)
         <img src="{{ $product->image }}" alt="{{ $product->name }}"
