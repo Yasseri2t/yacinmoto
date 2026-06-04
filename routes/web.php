@@ -39,12 +39,12 @@ Route::get('/admin/loginyacineadminmotos', function () {
 })->name('admin.login');
 
 Route::post('/admin/loginyacineadminmotos', function () {
-    if (request('password') !== env('ADMIN_PASSWORD')) {
+    if (!hash_equals(env('ADMIN_PASSWORD'), request('password'))) {
         return back()->withErrors(['password' => 'Mot de passe incorrect.']);
     }
     session(['admin_logged_in' => true]);
     return redirect()->route('admin.dashboard');
-})->name('admin.login.post');
+})->name('admin.login.post')->middleware('throttle:5,10');
 
 Route::get('/admin/logout', function () {
     session()->forget('admin_logged_in');
