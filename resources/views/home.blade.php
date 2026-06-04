@@ -9,21 +9,39 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('catalog') }}">🔧 Tout le catalogue</a>
                 </li>
-                @foreach($sections as $section)
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('catalog', ['section' => $section['slug']]) }}">
-                        @if($section['slug'] == 'pieces')
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-2px;"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-                        @elseif($section['slug'] == 'carenage')
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-2px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        @elseif($section['slug'] == 'moteur')
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-2px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                        @else
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:-2px;"><circle cx="12" cy="12" r="10"/></svg>
-                        @endif
-                        {{ $section['name'] }}
-                    </a>
-                </li>
+                @foreach ($sections as $section)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('catalog', ['section' => $section['slug']]) }}">
+                            @if ($section['slug'] == 'pieces')
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="margin-right:4px;vertical-align:-2px;">
+                                    <circle cx="12" cy="12" r="3" />
+                                    <path
+                                        d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+                                </svg>
+                            @elseif($section['slug'] == 'carenage')
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="margin-right:4px;vertical-align:-2px;">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                </svg>
+                            @elseif($section['slug'] == 'moteur')
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="margin-right:4px;vertical-align:-2px;">
+                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                                </svg>
+                            @else
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="margin-right:4px;vertical-align:-2px;">
+                                    <circle cx="12" cy="12" r="10" />
+                                </svg>
+                            @endif
+                            {{ $section['name'] }}
+                        </a>
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -55,8 +73,7 @@
                         <span style="color:var(--primary);font-weight:800;font-size:1.1rem;">الدفع عند الاستلام</span><br>
                         <small class="text-muted">Cash à la livraison uniquement</small>
                     </div>
-                    <a href="https://wa.me/213554164465" target="_blank"
-                        class="btn w-100 fw-700 text-white"
+                    <a href="https://wa.me/213554164465" target="_blank" class="btn w-100 fw-700 text-white"
                         style="background:#25d366;border-radius:10px;font-size:0.95rem;">
                         <i class="bi bi-whatsapp me-2"></i>Contacter sur WhatsApp
                     </a>
@@ -77,7 +94,10 @@
             <div class="piece-du-jour mb-5">
                 <div class="row align-items-center">
                     <div class="col-md-7">
-                        <div class="badge-jour"><svg width="20" height="20" viewBox="0 0 40 40" fill="none"><polygon points="20,6 24,15 34,16 27,23 29,33 20,28 11,33 13,23 6,16 16,15" stroke="#E85D04" stroke-width="2" stroke-linejoin="round"/></svg> Pièce du Jour</div>
+                        <div class="badge-jour"><svg width="14" height="14" viewBox="0 0 40 40">
+                                <polygon points="20,6 24,15 34,16 27,23 29,33 20,28 11,33 13,23 6,16 16,15"
+                                    fill="#E85D04" />
+                            </svg> Pièce du Jour</div>
                         <h2 class="fw-800 mb-2">{{ $pieceOfDay->name }}</h2>
                         @if ($pieceOfDay->description)
                             <p class="mb-3" style="color:#ccc;">{{ Str::limit($pieceOfDay->description, 120) }}</p>
@@ -113,8 +133,8 @@
         <!-- FEATURED PRODUCTS -->
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="section-title mb-0">Nouveautés <span>exclusives</span></div>
-            <a href="{{ route('catalog') }}" class="text-decoration-none fw-600" style="color:var(--primary)">Voir tout <i
-                    class="bi bi-arrow-right"></i></a>
+            <a href="{{ route('catalog') }}" class="text-decoration-none fw-600" style="color:var(--primary)">Voir tout
+                <i class="bi bi-arrow-right"></i></a>
         </div>
         <div class="row g-3 mb-5">
             @forelse($featured as $product)
