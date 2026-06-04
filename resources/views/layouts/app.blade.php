@@ -343,7 +343,7 @@
             justify-content: center;
             font-size: 1.3rem;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
             transition: transform 0.15s, box-shadow 0.15s;
             text-decoration: none;
             position: relative;
@@ -351,7 +351,7 @@
 
         .fab:hover {
             transform: scale(1.08);
-            box-shadow: 0 6px 22px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
         }
 
         .fab-cart {
@@ -382,7 +382,9 @@
             line-height: 1;
         }
 
-        .fab-badge.hidden { display: none; }
+        .fab-badge.hidden {
+            display: none;
+        }
 
         /* OVERLAY */
         .overlay {
@@ -466,7 +468,10 @@
             @endphp
             @foreach ($motos as $moto)
                 <a href="{{ route('catalog', ['moto' => $moto->slug]) }}"
-                    class="moto-tag {{ request('moto') == $moto->slug ? 'active' : '' }}">🛵 {{ $moto->name }}</a>
+                    class="moto-tag {{ request('moto') == $moto->slug ? 'active' : '' }}"><img
+                        src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780572032/orange_motorcycle_icon_1_fh49pp.png"
+                        width="20" height="20" style="vertical-align:-4px;margin-right:5px;object-fit:contain;">
+                    {{ $moto->name }}</a>
             @endforeach
             <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}">✨ Tous</a>
         </div>
