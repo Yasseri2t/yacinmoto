@@ -62,7 +62,7 @@ class OrderController extends Controller
                     'order_id'   => $order->id,
                     'product_id' => $product->id,
                     'quantity'   => $item['qty'],
-                    'price' => Product::find($item['id'])->price,
+                    'price' => $product->price,
                 ]);
             }
         }
