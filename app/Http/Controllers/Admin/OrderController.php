@@ -43,10 +43,13 @@ class OrderController extends Controller
     }
 
     public function update(Order $order)
-    {
-        $order->update(['status' => request('status')]);
-        return back()->with('success', 'Statut mis à jour!');
-    }
+{
+    request()->validate([
+        'status' => 'required|in:pending,confirmed,shipped,delivered,cancelled',
+    ]);
+    $order->update(['status' => request('status')]);
+    return back()->with('success', 'Statut mis à jour!');
+}
 
     public function destroy(Order $order)
     {
@@ -54,7 +57,7 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.index')->with('success', 'Commande supprimée!');
     }
 
-    public function create() {}
-    public function store() {}
-    public function edit(Order $order) {}
+    public function create() { abort(404); }
+public function store() { abort(404); }
+public function edit(Order $order) { abort(404); }
 }

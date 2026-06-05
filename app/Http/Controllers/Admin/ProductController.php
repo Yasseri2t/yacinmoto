@@ -12,10 +12,10 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     public function index()
-    {
-        $products = Product::with('category')->latest()->get();
-        return view('admin.products.index', compact('products'));
-    }
+{
+    $products = Product::with('category')->latest()->paginate(20);
+    return view('admin.products.index', compact('products'));
+}
 
     public function create()
     {
