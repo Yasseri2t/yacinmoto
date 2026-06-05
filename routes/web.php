@@ -55,10 +55,15 @@ Route::get('/admin/logout', function () {
 Route::prefix('admin')->name('admin.')->middleware('auth.admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('products', AdminProductController::class);
-    Route::resource('orders', AdminOrderController::class);
+    Route::resource('orders', AdminOrderController::class)->except(['show']);
+    Route::get('orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+    Route::delete('orders-bulk-clear', function () {
+        \App\Models\Order::whereIn('status', ['delivered', 'cancelled'])->delete();
+        return redirect()->route('admin.orders.index')->with('success', 'Commandes archivées supprimées!');
+    })->name('orders.bulk-clear');
     Route::resource('categories', AdminCategoryController::class)->except(['show']);
-Route::resource('moto-types', MotoTypeController::class)->except(['show']);
-Route::resource('sections', SectionController::class)->except(['show']);
+    Route::resource('moto-types', MotoTypeController::class)->except(['show']);
+    Route::resource('sections', SectionController::class)->except(['show']);
     Route::get('delivery', [DeliveryController::class, 'index'])->name('delivery.index');
     Route::put('delivery', [DeliveryController::class, 'update'])->name('delivery.update');
 });

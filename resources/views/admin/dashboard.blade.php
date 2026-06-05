@@ -1,9 +1,20 @@
 @extends('layouts.admin')
 @php
-$wilayaNames = config('wilayas');
+    $wilayaNames = config('wilayas');
 @endphp
 @section('title', 'Dashboard')
 @section('content')
+
+{{-- Filtre période --}}
+<div class="d-flex justify-content-end mb-3 gap-2">
+    @foreach(['all' => 'Tout', 'today' => "Aujourd'hui", 'week' => 'Semaine', 'month' => 'Mois'] as $val => $label)
+    <a href="{{ route('admin.dashboard', ['period' => $val]) }}"
+       class="btn btn-sm {{ ($period ?? 'all') == $val ? 'btn-primary' : 'btn-outline-secondary' }}">
+        {{ $label }}
+    </a>
+    @endforeach
+</div>
+
 <div class="row g-3 mb-4">
     <div class="col-6 col-md-3">
         <div class="stat-card">
@@ -63,12 +74,17 @@ $wilayaNames = config('wilayas');
                 <tbody>
                     @foreach($recentOrders as $order)
                     <tr>
-                        <td>#{{ $order->id }}</td>
+                        <td>
+                            #{{ $order->id }}
+                            @if($order->status == 'pending' && $order->created_at->diffInHours(now()) > 24)
+                                <span class="badge bg-danger ms-1" style="font-size:0.65rem;">⚠ Urgent</span>
+                            @endif
+                        </td>
                         <td>
                             <div class="fw-600">{{ $order->customer_name }}</div>
                             <small class="text-muted">{{ $order->customer_phone }}</small>
                         </td>
-                        <td><span class="small">{{ $order->wilaya }} — {{ $wilayaNames[$order->wilaya] ?? '' }}</span></td>
+                        <td><span class="small">{{ $wilayaNames[$order->wilaya] ?? $order->wilaya }}</span></td>
                         <td class="fw-700" style="color:var(--primary)">{{ number_format($order->total, 0) }} DZD</td>
                         <td><span class="badge badge-{{ $order->status }}">{{ ucfirst($order->status) }}</span></td>
                         <td><a href="{{ route('admin.orders.show', $order) }}" class="btn btn-sm btn-outline-secondary">→</a></td>
