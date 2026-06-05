@@ -7,7 +7,16 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $query = Order::with('items')->latest();
+        $query = Order::with('items')->orderByRaw("
+    CASE status
+        WHEN 'pending'   THEN 1
+        WHEN 'confirmed' THEN 2
+        WHEN 'shipped'   THEN 3
+        WHEN 'delivered' THEN 4
+        WHEN 'cancelled' THEN 5
+        ELSE 6
+    END
+")->latest();
         if (request('status')) $query->where('status', request('status'));
         if (request('search')) $query->where('customer_name', 'like', '%'.request('search').'%')->orWhere('customer_phone', 'like', '%'.request('search').'%');
         $orders = $query->paginate(20);
