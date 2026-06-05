@@ -36,9 +36,8 @@
         }
 
         .navbar-brand img {
-            height: 48px;
+            height: 44px;
             object-fit: contain;
-            min-width: 140px;
         }
 
         .nav-link {
@@ -431,7 +430,7 @@
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
                 <img src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780584317/12026_12_51_33-Photoroom_t7rm1i.png"
-                    height="48" style="object-fit:contain;max-height:48px;min-width:140px;">
+                    height="64" style="object-fit:contain;max-height:64px;">
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
                 <i class="bi bi-list text-white fs-3"></i>
