@@ -429,8 +429,8 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780583296/ChatGPT_Image_4_juin_2026_12_40_18-Photoroom_piq1od.png"
-                    height="56" style="object-fit:contain;">
+                <img src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780584317/12026_12_51_33-Photoroom_t7rm1i.png"
+                    height="64" style="object-fit:contain;max-height:64px;">
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
                 <i class="bi bi-list text-white fs-3"></i>
