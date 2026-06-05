@@ -428,10 +428,9 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780584317/12026_12_51_33-Photoroom_t7rm1i.png"
-                    height="64" style="object-fit:contain;max-height:64px;">
-            </a>
+            <a class="navbar-brand" href="{{ route('home') }}" style="text-decoration:none;">
+    <span style="font-size:1.5rem;font-weight:900;letter-spacing:2px;font-style:italic;color:white;">YACINEMOTO</span>
+</a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
                 <i class="bi bi-list text-white fs-3"></i>
             </button>
