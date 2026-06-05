@@ -430,7 +430,7 @@
         <div class="container">
             <a class="navbar-brand" href="{{ route('home') }}">
                 <img src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780583296/ChatGPT_Image_4_juin_2026_12_40_18-Photoroom_piq1od.png"
-                    height="40" style="object-fit:contain;">
+                    height="56" style="object-fit:contain;">
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
                 <i class="bi bi-list text-white fs-3"></i>
@@ -439,9 +439,7 @@
                 <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Accueil</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('catalog') }}">Catalogue</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}#store-info">Notre Boutique</a>
                     <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">À propos & Retours</a></li>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -462,8 +460,8 @@
             @endforeach
             <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}"><img
                     src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780584248/ChatGPT_Image_4_juin_2026_13_28_20-jukebox-bg-removed_h5qm0c.png"
-                    width="18" height="18"
-                    style="vertical-align:-3px;margin-right:4px;object-fit:contain;border-radius:3px;">
+                    width="22" height="22"
+                    style="vertical-align:-5px;margin-right:5px;object-fit:contain;">
                 Tous</a>
         </div>
     </div>
