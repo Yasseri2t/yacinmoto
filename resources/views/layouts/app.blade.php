@@ -452,15 +452,9 @@
             @endphp
             @foreach ($motos as $moto)
                 <a href="{{ route('catalog', ['moto' => $moto->slug]) }}"
-                    class="moto-tag {{ request('moto') == $moto->slug ? 'active' : '' }}"><img
-                        src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780572032/orange_motorcycle_icon_1_fh49pp.png"
-                        width="20" height="20" style="vertical-align:-4px;margin-right:5px;object-fit:contain;">
-                    {{ $moto->name }}</a>
+                    class="moto-tag {{ request('moto') == $moto->slug ? 'active' : '' }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E85D04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M8 17.5h7M15 17.5l-3-8H9L7 12H4"/><path d="M15 9.5l4-3h2"/></svg>{{ $moto->name }}</a>
             @endforeach
-            <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}"><img
-                    src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780584248/ChatGPT_Image_4_juin_2026_13_28_20-jukebox-bg-removed_h5qm0c.png"
-                    width="22" height="22"
-                    style="vertical-align:-5px;margin-right:5px;object-fit:contain;">
+            <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E85D04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M8 17.5h7M15 17.5l-3-8H9L7 12H4"/><path d="M15 9.5l4-3h2"/></svg>Tous</a>
                 Tous</a>
         </div>
     </div>
