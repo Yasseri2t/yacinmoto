@@ -11,38 +11,7 @@
                 </li>
                 @foreach ($sections as $section)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('catalog', ['section' => $section['slug']]) }}">
-                            @if ($section['slug'] == 'pieces')
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    style="margin-right:4px;vertical-align:-2px;">
-                                    <circle cx="12" cy="12" r="3" />
-                                    <path
-                                        d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
-                                </svg>
-                            @elseif($section['slug'] == 'carenage')
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    style="margin-right:4px;vertical-align:-2px;">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                                </svg>
-                            @elseif($section['slug'] == 'moteur')
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    style="margin-right:4px;vertical-align:-2px;">
-                                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                                </svg>
-                            @else
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    style="margin-right:4px;vertical-align:-2px;">
-                                    <circle cx="12" cy="12" r="10" />
-                                </svg>
-                            @endif
-                            {{ $section['name'] }}
-                        </a>
-                    </li>
-                @endforeach
+                        {{ $section['icon'] }}
             </ul>
         </div>
     </div>
