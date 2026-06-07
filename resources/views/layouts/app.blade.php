@@ -65,24 +65,26 @@
         }
 
         .moto-tag {
-            display: inline-block;
-            color: #aaa;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 0.82rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-            margin: 0 2px;
-        }
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: 1px;
+    border: none;
+    background: none;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+}
 
         .moto-tag:hover,
-        .moto-tag.active {
-            color: var(--primary);
-            border-color: var(--primary);
-            background: rgba(255, 107, 0, 0.1);
-        }
+.moto-tag.active {
+    color: #E85D04;
+}
 
         /* SECTIONS NAV */
         .sections-nav {
@@ -452,10 +454,7 @@
             @endphp
             @foreach ($motos as $moto)
                 <a href="{{ route('catalog', ['moto' => $moto->slug]) }}"
-                    class="moto-tag {{ request('moto') == $moto->slug ? 'active' : '' }}"><img
-                        src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780572032/orange_motorcycle_icon_1_fh49pp.png"
-                        width="20" height="20" style="vertical-align:-4px;margin-right:5px;object-fit:contain;">
-                    {{ $moto->name }}</a>
+                    class="moto-tag {{ request('moto') == $moto->slug ? 'active' : '' }}">{{ $moto->name }}</a>
             @endforeach
             <a href="{{ route('catalog') }}" class="moto-tag {{ !request('moto') ? 'active' : '' }}"><img
                     src="https://res.cloudinary.com/do1uxtjr1/image/upload/v1780584248/ChatGPT_Image_4_juin_2026_13_28_20-jukebox-bg-removed_h5qm0c.png"
