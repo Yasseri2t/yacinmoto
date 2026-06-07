@@ -11,7 +11,11 @@
                 </li>
                 @foreach ($sections as $section)
                     <li class="nav-item">
-                        {{ $section['icon'] }}
+                        <a class="nav-link" href="{{ route('catalog', ['section' => $section['slug']]) }}">
+                            {{ $section['icon'] }} {{ $section['name'] }}
+                        </a>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>
