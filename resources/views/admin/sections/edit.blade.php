@@ -12,8 +12,12 @@
                     <input type="text" name="name" class="form-control" required value="{{ old('name', $section->name) }}">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label fw-600">Icône (emoji) *</label>
-                    <input type="text" name="icon" class="form-control" required value="{{ old('icon', $section->icon) }}">
+                    <label class="form-label fw-600">Icône <small class="text-muted fw-400">(optionnel)</small></label>
+                    <input type="text" name="icon" class="form-control" value="{{ old('icon', $section->icon) }}" placeholder="emoji ex: 🔩 — ou SVG complet ex: <svg ...>...</svg>">
+                    <small class="text-muted">Emoji: colle directement — ou SVG: colle le code complet</small>
+                    @if($section->icon)
+                        <div class="mt-2 p-2 rounded" style="background:#f8f8f8;">Aperçu actuel: {!! $section->icon !!}</div>
+                    @endif
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-600">Ordre d'affichage</label>
