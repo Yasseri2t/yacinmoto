@@ -18,11 +18,11 @@ class SectionController extends Controller
 
     public function store()
     {
-        request()->validate(['name' => 'required', 'icon' => 'required']);
+        request()->validate(['name' => 'required']);
         Section::create([
             'name'       => request('name'),
             'slug'       => Str::slug(request('name')),
-            'icon'       => request('icon'),
+            'icon'       => request('icon', ''),
             'sort_order' => request('sort_order', 0),
         ]);
         return redirect()->route('admin.sections.index')->with('success', 'Section ajoutée!');
@@ -35,11 +35,11 @@ class SectionController extends Controller
 
     public function update(Section $section)
     {
-        request()->validate(['name' => 'required', 'icon' => 'required']);
+        request()->validate(['name' => 'required']);
         $section->update([
             'name'       => request('name'),
             'slug'       => Str::slug(request('name')),
-            'icon'       => request('icon'),
+            'icon'       => request('icon', ''),
             'sort_order' => request('sort_order', 0),
         ]);
         return redirect()->route('admin.sections.index')->with('success', 'Mis à jour!');
