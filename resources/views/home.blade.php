@@ -75,7 +75,8 @@
                     <div class="col-md-7">
                         <div class="badge-jour"><svg width="14" height="14" viewBox="0 0 40 40">
                                 <defs>
-                                    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <linearGradient id="gold" x1="0%" y1="0%" x2="100%"
+                                        y2="100%">
                                         <stop offset="0%" stop-color="#FFD700" />
                                         <stop offset="50%" stop-color="#FFA500" />
                                         <stop offset="100%" stop-color="#FFD700" />
@@ -116,11 +117,11 @@
             </div>
         @endif
 
-        <!-- FEATURED PRODUCTS BANNER + GRID -->
-        <div style="position:relative;background:#111;border-radius:8px;overflow:hidden;padding:16px 24px;margin-bottom:1.5rem;display:flex;align-items:center;gap:16px;border-bottom:4px solid #E85D04;">
-            <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:#E85D04;"></div>
-            <h2 style="font-size:1.4rem;font-weight:900;font-style:italic;color:white;margin:0;letter-spacing:1px;flex:1;">Nouveautés exclusives</h2>
-            <a href="{{ route('catalog') }}" style="font-size:0.8rem;font-weight:700;font-style:italic;color:white;text-decoration:none;letter-spacing:0.5px;background:#E85D04;padding:5px 14px;border-radius:4px;white-space:nowrap;">Voir tout →</a>
+        <!-- FEATURED PRODUCTS -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="section-title mb-0">Nouveautés <span>exclusives</span></div>
+            <a href="{{ route('catalog') }}" class="text-decoration-none fw-600" style="color:var(--primary)">Voir tout
+                <i class="bi bi-arrow-right"></i></a>
         </div>
         <div class="row g-3 mb-5">
             @forelse($featured as $product)
@@ -136,10 +137,11 @@
         @foreach ($sections as $section)
             @if ($section['products']->count())
                 <div class="mb-5">
-                    <div style="position:relative;background:#111;border-radius:8px;overflow:hidden;padding:14px 24px;margin-bottom:1rem;display:flex;align-items:center;gap:16px;border-bottom:4px solid #E85D04;">
-                        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:#E85D04;"></div>
-                        <h2 style="font-size:1.2rem;font-weight:900;font-style:italic;color:white;margin:0;letter-spacing:1px;flex:1;">{{ $section['name'] }}</h2>
-                        <a href="{{ route('catalog', ['section' => $section['slug']]) }}" style="font-size:0.8rem;font-weight:700;font-style:italic;color:white;text-decoration:none;letter-spacing:0.5px;background:#E85D04;padding:5px 14px;border-radius:4px;white-space:nowrap;">Voir tout →</a>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="section-title mb-0">{{ $section['icon'] }} <span>{{ $section['name'] }}</span></div>
+                        <a href="{{ route('catalog', ['section' => $section['slug']]) }}"
+                            class="text-decoration-none fw-600" style="color:var(--primary)">Voir tout <i
+                                class="bi bi-arrow-right"></i></a>
                     </div>
                     <div class="row g-3">
                         @foreach ($section['products'] as $product)
